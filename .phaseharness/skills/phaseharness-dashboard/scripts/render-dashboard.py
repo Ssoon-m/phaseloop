@@ -2479,6 +2479,7 @@ def dashboard_html() -> str:
         "result.evaluation": "Evaluation",
         "resume.label": "Resume",
         "meta.mode": "Mode",
+        "meta.commit": "Commit",
         "meta.branch": "Branch",
         "metric.stage": "Stage",
         "metric.phase": "Phase",
@@ -2605,6 +2606,7 @@ def dashboard_html() -> str:
         "result.evaluation": "평가",
         "resume.label": "재개",
         "meta.mode": "모드",
+        "meta.commit": "커밋",
         "meta.branch": "브랜치",
         "metric.stage": "단계",
         "metric.phase": "Phase",
@@ -3141,6 +3143,7 @@ def dashboard_html() -> str:
             </div>
             <div class="workflow-run-line">
               ${metaChip(t("meta.mode"), summary.mode || t("common.unknown"))}
+              ${metaChip(t("meta.commit"), summary.commit_mode || t("common.unknown"))}
               ${metaChip(t("meta.branch"), summary.worktree?.branch || t("common.unknown"))}
             </div>
           </div>

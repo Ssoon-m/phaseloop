@@ -25,7 +25,7 @@
     ".phaseharness/skills/evaluate/scripts/render-evaluation-config.py": "sha256:46f6c056eaae220caf914ec1f726e64a73a7b0c4b5648dc1ee46fc72ab5bb7f9",
     ".phaseharness/skills/generate/SKILL.md": "sha256:14e27ba56db4ac75454212efbf08c951860288012620ca094da141b0f34cb5b9",
     ".phaseharness/skills/phaseharness-dashboard/SKILL.md": "sha256:c63f2f6381cfdfa5dc8c03de405f14ae62456729a1e5e5488205840d6d6764bf",
-    ".phaseharness/skills/phaseharness-dashboard/scripts/render-dashboard.py": "sha256:785dfa54e0de2b0bf793ca2147d950470266c74cbc7fbf2f6c046bc6976a246f",
+    ".phaseharness/skills/phaseharness-dashboard/scripts/render-dashboard.py": "sha256:f7d940c38ad538f2bf1392a21cd2fa34ea473cda6ed56962c7eded39ad05375e",
     ".phaseharness/skills/phaseharness/SKILL.md": "sha256:145bc9c634b003a98408375e5a1816ff8d9118e6af123881fe903205c3ce78db",
     ".phaseharness/skills/plan/SKILL.md": "sha256:04b2e7f04e3db3ed50125ae3df13926ca128c06227576f4d8a7be36737ceb75d"
   }
