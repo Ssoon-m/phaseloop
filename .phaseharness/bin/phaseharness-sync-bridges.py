@@ -10,7 +10,16 @@ from pathlib import Path
 from typing import Any
 
 
-SKILLS = ["clarify", "context-gather", "plan", "generate", "evaluate", "commit", "phaseharness"]
+SKILLS = [
+    "clarify",
+    "context-gather",
+    "plan",
+    "generate",
+    "evaluate",
+    "commit",
+    "phaseharness",
+    "phaseharness-dashboard",
+]
 SKILL_ROOTS = [
     Path(".claude") / "skills",
     Path(".agents") / "skills",

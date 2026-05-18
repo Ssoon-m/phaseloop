@@ -74,6 +74,15 @@ commit mode: none
 
 Commits are not pushed automatically. Ask the agent to push separately when you want that.
 
+## Dashboard Views
+
+You can check the current task, previous task history, and generated outputs in one place on the dashboard.
+Ask the agent like this:
+
+```text
+Use `phaseharness-dashboard` to show the dashboard.
+```
+
 ## Important: Connect Project Guidance
 
 If your project has guidance documents the agent should follow, such as architecture documents, coding rules, or review criteria, connect them before starting the first real task.

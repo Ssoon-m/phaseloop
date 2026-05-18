@@ -48,9 +48,11 @@ test -f "$HARNESS_SOURCE/.phaseharness/settings.example.json"
 test -f "$HARNESS_SOURCE/.phaseharness/context.example.json"
 test -f "$HARNESS_SOURCE/.phaseharness/context.schema.json"
 test -f "$HARNESS_SOURCE/.phaseharness/skills/phaseharness/SKILL.md"
+test -f "$HARNESS_SOURCE/.phaseharness/skills/phaseharness-dashboard/SKILL.md"
 test -f "$HARNESS_SOURCE/.phaseharness/skills/commit/SKILL.md"
 test -f "$HARNESS_SOURCE/.phaseharness/skills/context-gather/scripts/render-context-config.py"
 test -f "$HARNESS_SOURCE/.phaseharness/skills/evaluate/scripts/render-evaluation-config.py"
+test -f "$HARNESS_SOURCE/.phaseharness/skills/phaseharness-dashboard/scripts/render-dashboard.py"
 ```
 
 If `HARNESS_SOURCE` is not set:
@@ -82,8 +84,8 @@ This creates or updates:
 - `.claude/settings.json` phaseharness `SessionStart` and `Stop` hook entries
 - `.codex/config.toml` `[features].hooks = true`
 - `.codex/hooks.json` phaseharness `SessionStart` and `Stop` hook entries
-- `.claude/skills/{clarify,context-gather,plan,generate,evaluate,commit,phaseharness}`
-- `.agents/skills/{clarify,context-gather,plan,generate,evaluate,commit,phaseharness}`
+- `.claude/skills/{clarify,context-gather,plan,generate,evaluate,commit,phaseharness,phaseharness-dashboard}`
+- `.agents/skills/{clarify,context-gather,plan,generate,evaluate,commit,phaseharness,phaseharness-dashboard}`
 - `.phaseharness/bin/phaseharness-update.py` for safe SessionStart updates from managed file hashes
 - `.phaseharness/bin/phaseharness-worktree.py` for parallel worktree creation
 - `.phaseharness/state/active.json`
@@ -127,7 +129,9 @@ python3 .phaseharness/bin/phaseharness-update.py check --source "$HARNESS_SOURCE
 python3 .phaseharness/bin/phaseharness-worktree.py --help
 python3 "$(git rev-parse --show-toplevel)/.phaseharness/skills/context-gather/scripts/render-context-config.py"
 python3 "$(git rev-parse --show-toplevel)/.phaseharness/skills/evaluate/scripts/render-evaluation-config.py"
+python3 "$(git rev-parse --show-toplevel)/.phaseharness/skills/phaseharness-dashboard/scripts/render-dashboard.py" --help
 python3 -m py_compile .phaseharness/bin/*.py
+python3 -m py_compile "$(git rev-parse --show-toplevel)/.phaseharness/skills/phaseharness-dashboard/scripts/render-dashboard.py"
 python3 .phaseharness/bin/phaseharness-state.py next --require-auto --reprompt-running --require-session-binding --json
 ```
 

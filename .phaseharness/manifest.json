@@ -6,7 +6,7 @@
     ".phaseharness/.gitignore": "sha256:ad285b175bdc541436ccd201548fa3535f0a3f249f24980121b38c47af574ff9",
     ".phaseharness/bin/phaseharness-hook.py": "sha256:845a4f0fedbb54954fd57c2e62acdf1d567e68468844983e636aac9750126da6",
     ".phaseharness/bin/phaseharness-state.py": "sha256:864b2e4b79bb7646ce50cb2b255a874d4842ea5af692a3c84e42947840efbf88",
-    ".phaseharness/bin/phaseharness-sync-bridges.py": "sha256:b20f49124882523b387572bfc1120da98552bd4840126790d54e18c0e2901756",
+    ".phaseharness/bin/phaseharness-sync-bridges.py": "sha256:0698aad910e32729faec75fef08dc2b0ad42e4be49f64e4c83625d40b61c2d34",
     ".phaseharness/bin/phaseharness-update.py": "sha256:7d8dcbe9b4060b424307b0ae75ab4f29fcb07777e385bd9b33115e31e7326d03",
     ".phaseharness/bin/phaseharness-worktree.py": "sha256:13098d7b80789792caf78e312a0634ef220a63ac23ff62aa00d5ca9c8f63cb4e",
     ".phaseharness/context.example.json": "sha256:1d7fb2781b4ef67fcaf4a28d60bd1ed6c79481e6df4804c45f3cdc61231caf69",
@@ -24,6 +24,8 @@
     ".phaseharness/skills/evaluate/SKILL.md": "sha256:a80eec9182ca478d4b52bfd9a1bc235cbe367ffa63fe29130b6546199d7de20a",
     ".phaseharness/skills/evaluate/scripts/render-evaluation-config.py": "sha256:46f6c056eaae220caf914ec1f726e64a73a7b0c4b5648dc1ee46fc72ab5bb7f9",
     ".phaseharness/skills/generate/SKILL.md": "sha256:14e27ba56db4ac75454212efbf08c951860288012620ca094da141b0f34cb5b9",
+    ".phaseharness/skills/phaseharness-dashboard/SKILL.md": "sha256:2c0bd06bd8875969b07d56d3db4bf3c62a65a17b2ef72af1edfaa174fa013357",
+    ".phaseharness/skills/phaseharness-dashboard/scripts/render-dashboard.py": "sha256:cbcbac3c2ad4e89a571bce47934b0dc5defc5400b42f3c1634011ba8d73c19ea",
     ".phaseharness/skills/phaseharness/SKILL.md": "sha256:145bc9c634b003a98408375e5a1816ff8d9118e6af123881fe903205c3ce78db",
     ".phaseharness/skills/plan/SKILL.md": "sha256:04b2e7f04e3db3ed50125ae3df13926ca128c06227576f4d8a7be36737ceb75d"
   }
