@@ -1335,13 +1335,6 @@ def dashboard_html() -> str:
       max-width: 900px;
       word-break: break-word;
     }
-    .statusbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px;
-      min-width: 260px;
-    }
     .header-actions {
       display: grid;
       justify-items: end;
@@ -1393,18 +1386,6 @@ def dashboard_html() -> str:
       outline: 2px solid var(--color-blue-focus);
       outline-offset: 2px;
     }
-    .chip {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 12px;
-      background: var(--color-panel);
-      color: var(--slate);
-      white-space: nowrap;
-    }
-    .chip.live { border-color: var(--color-green-line); color: var(--green); background: var(--color-green-soft); }
-    .chip.warn { border-color: var(--color-amber-line); color: var(--amber); background: var(--color-amber-soft); }
-    .chip.bad { border-color: var(--color-red-line); color: var(--red); background: var(--color-red-soft); }
     main {
       width: min(1440px, calc(100vw - 40px));
       margin: 0 auto;
@@ -1441,28 +1422,54 @@ def dashboard_html() -> str:
       display: inline-flex;
       align-items: center;
       justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 5px;
+      gap: 8px;
       font-size: 12px;
       line-height: 1.4;
       min-width: 0;
+      max-width: 100%;
     }
     .elapsed-label {
       color: var(--muted);
-      overflow-wrap: anywhere;
-    }
-    .elapsed-label::after {
-      content: "·";
-      margin-left: 5px;
-      color: var(--color-muted-soft);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 420px;
     }
     .elapsed-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--color-panel-muted);
       color: var(--slate);
       font-weight: 600;
-      padding: 0;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      padding: 5px 8px;
       white-space: nowrap;
     }
+    .elapsed-time::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+    .elapsed-time.running {
+      border-color: var(--color-blue-line-soft);
+      background: var(--color-blue-soft);
+      color: var(--blue);
+    }
     .elapsed-time.done {
+      border-color: var(--color-green-line);
+      background: var(--color-green-soft);
+      color: var(--green);
+    }
+    .elapsed-time.done::before {
+      background: var(--color-green-dot);
+    }
+    .elapsed-time.idle {
       color: var(--slate);
     }
     .section-body { padding: 16px; }
@@ -2308,7 +2315,9 @@ def dashboard_html() -> str:
       .header-actions { justify-items: flex-start; min-width: 0; width: 100%; }
       .header-controls { justify-content: flex-start; }
       .theme-control, .language-control { max-width: 100%; }
-      .statusbar { justify-content: flex-start; min-width: 0; }
+      .section-head { flex-wrap: wrap; }
+      .elapsed-counter { justify-content: flex-start; width: 100%; }
+      .elapsed-label { max-width: 100%; }
       main { width: calc(100vw - 28px); grid-template-columns: 1fr; padding: 14px 0; }
       .stage-lane { grid-template-columns: 1fr; gap: 10px; }
       .stage-lane .node::before, .stage-lane .node::after { display: none; }
@@ -2327,7 +2336,6 @@ def dashboard_html() -> str:
       <div class="subtitle" id="subtitle">Loading run state...</div>
     </div>
     <div class="header-actions">
-      <div class="statusbar" id="statusbar"></div>
       <div class="header-controls">
         <div class="language-control" id="language-control" aria-label="Language"></div>
         <div class="theme-control" id="theme-control" aria-label="Theme"></div>
@@ -2345,7 +2353,7 @@ def dashboard_html() -> str:
       <section>
         <div class="section-head">
           <h2 id="current-workflow-title">Current Workflow</h2>
-          <span class="elapsed-counter" id="elapsed-counter">idle</span>
+          <span class="elapsed-counter" id="elapsed-counter" aria-live="polite">idle</span>
         </div>
         <div class="section-body">
           <div class="workflow-context" id="workflow-context"></div>
@@ -2441,12 +2449,6 @@ def dashboard_html() -> str:
         "status.skipped": "skipped",
         "status.inactive": "inactive",
         "status.unknown": "unknown",
-        "header.activeRun": "active run",
-        "header.selectedRun": "selected run",
-        "header.inactive": "inactive",
-        "header.updated": "updated",
-        "header.stale": "stale",
-        "header.fresh": "fresh",
         "empty.noActiveRun": "No active run",
         "empty.noActivePhaseharnessRun": "No active phaseharness run.",
         "empty.noGeneratePhaseFiles": "No generate phase files found.",
@@ -2573,12 +2575,6 @@ def dashboard_html() -> str:
         "status.skipped": "건너뜀",
         "status.inactive": "비활성",
         "status.unknown": "알 수 없음",
-        "header.activeRun": "진행 중",
-        "header.selectedRun": "선택됨",
-        "header.inactive": "비활성",
-        "header.updated": "갱신",
-        "header.stale": "멈춤",
-        "header.fresh": "최신",
         "empty.noActiveRun": "진행 중인 run 없음",
         "empty.noActivePhaseharnessRun": "진행 중인 phaseharness run이 없습니다.",
         "empty.noGeneratePhaseFiles": "generate phase 파일이 없습니다.",
@@ -2821,9 +2817,6 @@ def dashboard_html() -> str:
     function escapeHtml(value) {
       return text(value, "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
     }
-    function chip(label, status) {
-      return `<span class="chip ${cls(status)}">${escapeHtml(label)}</span>`;
-    }
     function metaChip(label, value) {
       return `<span class="meta-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></span>`;
     }
@@ -2934,7 +2927,7 @@ def dashboard_html() -> str:
         return;
       }
       const elapsed = secondsSince(stageStartedAt(stage) || summary.created_at);
-      setElapsed(`${stageName}${phase}`, elapsed === null ? t("elapsed.running") : formatDuration(elapsed));
+      setElapsed(`${stageName}${phase}`, elapsed === null ? t("elapsed.running") : formatDuration(elapsed), "running");
       document.querySelectorAll("[data-stage-live]").forEach(item => {
         item.textContent = elapsed === null ? t("elapsed.running") : formatStageDuration(elapsed);
       });
@@ -3004,17 +2997,9 @@ def dashboard_html() -> str:
     function renderHeader(payload) {
       const current = currentData(payload);
       const summary = current?.views?.summary;
-      const resume = current?.views?.resume;
-      const activeSelected = summary?.run_id && summary.run_id === payload.active_run;
       document.getElementById("subtitle").textContent = current
         ? `${summary.request || ""} · ${summary.run_id || ""}`
         : `${t("empty.noActiveRun")} · ${payload.root}`;
-      const stale = resume?.stale?.is_stale;
-      document.getElementById("statusbar").innerHTML = [
-        chip(current ? (activeSelected ? t("header.activeRun") : t("header.selectedRun")) : t("header.inactive"), current ? summary.status : "pending"),
-        chip(`${t("header.updated")} ${formatLocalDateTime(payload.generated_at)}`, "pending"),
-        chip(stale ? t("header.stale") : t("header.fresh"), stale ? "warn" : "completed")
-      ].join("");
     }
     function node(stage, status, meta, active, options = {}) {
       const classes = ["node", cls(status)];
